@@ -24,8 +24,8 @@
             <x-transaction-details.transactions-filter.merchant-category-code 
                 showMerchantCategoryCodeFilterButton="{{$showMerchantCategoryCodeFilterButton}}"  
                 showMerchantCategoryCodeFilterDropdown="{{$showMerchantCategoryCodeFilterDropdown}}"  
-                :merchantCategoryCodes="$merchantCategoryCodes"
-                :merchantCategoryCodeFilter="$merchantCategoryCodeFilter" />
+                :merchantCategoryCodesDisplayed="$merchantCategoryCodesDisplayed"
+                :merchantCategoryCodeFiltered="$merchantCategoryCodeFiltered" />
         </div>
         @endif
         @if(in_array('transaction_status',$this->filterTransactionsCheckbox,TRUE))
