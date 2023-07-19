@@ -22,8 +22,8 @@
         @if(in_array('merchant_category_code',$this->filterTransactionsCheckbox,TRUE))
         <div class="pr-4">
             <x-transaction-details.transactions-filter.merchant-category-code 
-                showMerchantCategoryCodeFilter="{{$showMerchantCategoryCodeFilter}}"  
-                showMerchantCategoryCodeFilterBody="{{$showMerchantCategoryCodeFilterBody}}"  
+                showMerchantCategoryCodeFilterButton="{{$showMerchantCategoryCodeFilterButton}}"  
+                showMerchantCategoryCodeFilterDropdown="{{$showMerchantCategoryCodeFilterDropdown}}"  
                 :merchantCategoryCodes="$merchantCategoryCodes"
                 :merchantCategoryCodeFilter="$merchantCategoryCodeFilter" />
         </div>

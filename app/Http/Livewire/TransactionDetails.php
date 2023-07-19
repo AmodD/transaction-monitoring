@@ -8,18 +8,22 @@ use Livewire\Component;
 
 class TransactionDetails extends Component
 {
-    protected $listeners = ['updatedFilterTransactionsCheckbox'];
-    
+    // this is the list of checkbox items for Transaction Filter 
     public $filterTransactionsCheckbox = [];
 
-    public $showPaymentGatewayFilter = 'hidden invisible';
-    public $showConsentFlagFilter = 'invisible';
-    public $showMerchantCategoryCodeFilter = 'invisible';
-    public $showMerchantCategoryCodeFilterBody = '';
-    public $showTransactionStatusFilter = 'invisible';
-    public $showPaymentAppFilter = 'invisible';
-    public $showWebMobileFilter = 'invisible';
+    public $showPaymentGatewayFilter = 'invisible'; //button
+    public $showPaymentGatewayFilterBody = ''; //dropdown
     
+    public $showConsentFlagFilter = 'invisible'; //button
+    
+    public $showMerchantCategoryCodeFilterButton = 'invisible'; //button
+    public $showMerchantCategoryCodeFilterDropdown = ''; //dropdown
+
+    public $showTransactionStatusFilter = 'invisible'; //button
+    public $showPaymentAppFilter = 'invisible'; //button
+    public $showWebMobileFilter = 'invisible'; //button
+
+    // this is the list pf checkbox items selected in respective filters
     public $paymentGatewayFilter = [];
     public $consentFlagFilter = [];
     public $merchantCategoryCodeFilter = [];
@@ -27,6 +31,7 @@ class TransactionDetails extends Component
     public $paymentAppFilter = [];
     public $webMobileFilter = [];
 
+    // search boxes in respective filters
     public $searchPG = '';
     public $searchMCC = '';
 
@@ -39,7 +44,7 @@ class TransactionDetails extends Component
     {
       $this->paymentGateways = $this->paymentGatewaysAll;
       $this->merchantCategoryCodes = $this->merchantCategoryCodesAll;
-      $this->showMerchantCategoryCodeFilterBody = 'hidden';
+      $this->showMerchantCategoryCodeFilterDropdown = 'hidden';
     }
 
 
@@ -68,9 +73,9 @@ class TransactionDetails extends Component
     public function toggleFilterBody($data)
     {
       if($data == 'merchant_category_code') {
-      ($this->showMerchantCategoryCodeFilterBody == 'hidden') ? 
-        $this->showMerchantCategoryCodeFilterBody = '' : 
-        $this->showMerchantCategoryCodeFilterBody = 'hidden'  ;
+      ($this->showMerchantCategoryCodeFilterDropdown == 'hidden') ? 
+        $this->showMerchantCategoryCodeFilterDropdown = '' : 
+        $this->showMerchantCategoryCodeFilterDropdown = 'hidden'  ;
       }
     }
 
@@ -83,8 +88,8 @@ class TransactionDetails extends Component
         $this->showConsentFlagFilter = 'visible' : 
         $this->showConsentFlagFilter = 'invisible' ;
       in_array('merchant_category_code',$this->filterTransactionsCheckbox,TRUE) ? 
-        $this->showMerchantCategoryCodeFilter = 'visible' : 
-        $this->showMerchantCategoryCodeFilter = 'invisible' ;
+        $this->showMerchantCategoryCodeFilterButton = 'visible' : 
+        $this->showMerchantCategoryCodeFilterButton = 'invisible' ;
       in_array('transaction_status',$this->filterTransactionsCheckbox,TRUE) ? 
         $this->showTransactionStatusFilter = 'visible' : 
         $this->showTransactionStatusFilter = 'invisible' ;
@@ -96,8 +101,8 @@ class TransactionDetails extends Component
         $this->showWebMobileFilter = 'invisible' ;
       
       in_array('merchant_category_code',$this->filterTransactionsCheckbox,TRUE) ? 
-        $this->showMerchantCategoryCodeFilterBody = 'hidden' : 
-        $this->showMerchantCategoryCodeFilterBody = 'hidden' ;
+        $this->showMerchantCategoryCodeFilterDropdown = 'hidden' : 
+        $this->showMerchantCategoryCodeFilterDropdown = 'hidden' ;
 
       in_array('merchant_category_code',$this->filterTransactionsCheckbox,TRUE) ? : $this->reset('merchantCategoryCodeFilter');
     }
