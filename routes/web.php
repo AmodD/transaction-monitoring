@@ -25,4 +25,15 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::get('/transaction_details', function () {
+
+
+        return view('transaction-details');
+    })->name('transaction_details');
+    Route::get('/advanced_analytics', function () {
+        return view('advanced-analytics');
+    })->name('advanced_analytics');
+    Route::get('/user_management', function () {
+        return view('dashboard');
+    })->name('user_management');
 });
