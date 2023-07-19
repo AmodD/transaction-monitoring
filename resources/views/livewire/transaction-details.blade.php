@@ -9,19 +9,31 @@
       </div>
 
       <div class="flex py-2" >
-        <div class=""> 
+        @if(in_array('payment_gateway',$this->filterTransactionsCheckbox,TRUE))
+          <div class="pr-4"> 
             <x-transaction-details.transactions-filter.payment-gateway 
                 showPaymentGatewayFilter="{{$showPaymentGatewayFilter}}"  
                 :paymentGateways="$paymentGateways"
                 :paymentGatewayFilter="$paymentGatewayFilter" />
-        </div>
-        <div class="px-4">
+          </div>
+        @endif
+        @if(in_array('consent_flag',$this->filterTransactionsCheckbox,TRUE))
+        @endif
+        @if(in_array('merchant_category_code',$this->filterTransactionsCheckbox,TRUE))
+        <div class="pr-4">
             <x-transaction-details.transactions-filter.merchant-category-code 
                 showMerchantCategoryCodeFilter="{{$showMerchantCategoryCodeFilter}}"  
                 showMerchantCategoryCodeFilterBody="{{$showMerchantCategoryCodeFilterBody}}"  
                 :merchantCategoryCodes="$merchantCategoryCodes"
                 :merchantCategoryCodeFilter="$merchantCategoryCodeFilter" />
         </div>
+        @endif
+        @if(in_array('transaction_status',$this->filterTransactionsCheckbox,TRUE))
+        @endif
+        @if(in_array('payment_app',$this->filterTransactionsCheckbox,TRUE))
+        @endif
+        @if(in_array('web_mobile',$this->filterTransactionsCheckbox,TRUE))
+        @endif
       </div>
 
           <x-transaction-details.transactions-table />
