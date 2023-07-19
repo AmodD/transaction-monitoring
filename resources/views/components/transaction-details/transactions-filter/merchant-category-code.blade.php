@@ -15,8 +15,7 @@
           </svg>
 </button>
 <!-- Dropdown menu -->
-<div id="dropdownSearchMerchantCategoryCode"  class="{{$showMerchantCategoryCodeFilterBody}}">
-<div class="z-10 bg-white rounded-lg shadow w-60 dark:bg-gray-700">
+<div  id="dropdownSearchMerchantCategoryCode" class="z-10 bg-white rounded-lg shadow w-60 dark:bg-gray-700 {{$showMerchantCategoryCodeFilterBody}}" style="position: absolute;">
     <div class="p-3">
       <label for="input-group-search" class="sr-only">Search</label>
       <div class="relative">
@@ -38,7 +37,6 @@
       </li>
     @endforeach
     </ul>
-</div>
 </div>
 
 </div>
