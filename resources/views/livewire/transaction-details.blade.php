@@ -11,10 +11,11 @@
       <div class="flex py-2" >
         @if(in_array('payment_gateway',$this->filterTransactionsCheckbox,TRUE))
           <div class="pr-4"> 
-            <x-transaction-details.transactions-filter.payment-gateway 
-                showPaymentGatewayFilter="{{$showPaymentGatewayFilter}}"  
-                :paymentGateways="$paymentGateways"
-                :paymentGatewayFilter="$paymentGatewayFilter" />
+            <x-transaction-details.transactions-filter.payment-gateway
+                showPaymentGatewayFilterButton="{{$showPaymentGatewayFilterButton}}"  
+                showPaymentGatewayFilterDropdown="{{$showPaymentGatewayFilterDropdown}}"  
+                :paymentGatewaysDisplayed="$paymentGatewaysDisplayed"
+                :paymentGatewaysFiltered="$paymentGatewaysFiltered" />
           </div>
         @endif
         @if(in_array('consent_flag',$this->filterTransactionsCheckbox,TRUE))
