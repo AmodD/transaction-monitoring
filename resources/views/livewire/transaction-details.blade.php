@@ -53,6 +53,13 @@
        @endif
 
         @if(in_array('web_mobile',$this->filterTransactionsCheckbox,TRUE))
+          <div class="pr-4"> 
+            <x-transaction-details.transactions-filter.web-mobile
+                showWebMobileFilterButton="{{$showWebMobileFilterButton}}"  
+                showWebMobileFilterDropdown="{{$showWebMobileFilterDropdown}}"  
+                :webMobileDisplayed="$webMobileDisplayed"
+                :webMobileFiltered="$webMobileFiltered" />
+          </div>
         @endif
       </div>
 

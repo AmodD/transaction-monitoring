@@ -24,7 +24,9 @@ class TransactionDetails extends Component
     public $showTransactionStatusFilterDropdown = '';
 
     public $showPaymentAppFilter = 'invisible'; //button
-    public $showWebMobileFilter = 'invisible'; //button
+
+    public $showWebMobileFilterButton = 'invisible'; 
+    public $showWebMobileFilterDropdown = ''; 
 
     // this is the list pf checkbox items selected aka filtered in respective filters
     public $paymentGatewaysFiltered = [];
@@ -32,7 +34,7 @@ class TransactionDetails extends Component
     public $merchantCategoryCodesFiltered = [];
     public $transactionStatusesFiltered = [];
     public $paymentAppFilter = [];
-    public $webMobileFilter = [];
+    public $webMobileFiltered = [];
 
     // search boxes in respective filters
     public $searchPG = '';
@@ -51,6 +53,9 @@ class TransactionDetails extends Component
     public $merchantCategoryCodesDisplayed = [];
     public $merchantCategoryCodesAll = ['4829 money orders - wire transfer','4900 electric, gas, sanitary and water utilities','5013 motor vehicle supplies and new parts','5045 computers, computer peripheral equipment, software','5047 medical, dental ophthalmic, hospital equipment and supplies','5139 commercial footwear','5411 grocery stores','5462 bakeries','5571 motorcycle dealers','5732 electronic sales','5814 fast food restaurants','5942 book stores','5977 cosmetic stores','7032 sporting and recreational camps','7298 health and beauty shops','7542 car washes'];
     
+    public $webMobileDisplayed = [];
+    public $webMobileAll = ['Web','Mobile'];
+
     public function mount()
     {
       $this->paymentGatewaysDisplayed = $this->paymentGatewaysAll;
@@ -64,6 +69,9 @@ class TransactionDetails extends Component
       
       $this->transactionStatusesDisplayed = $this->transactionStatusesAll;
       $this->showTransactionStatusFilterDropdown = 'hidden';
+      
+      $this->webMobileDisplayed = $this->webMobileAll;
+      $this->showWebMobileFilterDropdown = 'hidden';
       
     }
 
@@ -117,6 +125,11 @@ class TransactionDetails extends Component
           $this->showTransactionStatusFilterDropdown = '' : 
           $this->showTransactionStatusFilterDropdown = 'hidden'  ;
       }
+      else if($data == 'web_mobile') {
+        ($this->showWebMobileFilterDropdown == 'hidden') ? 
+          $this->showWebMobileFilterDropdown = '' : 
+          $this->showWebMobileFilterDropdown = 'hidden'  ;
+      }
     }
 
     public function updatedFilterTransactionsCheckbox()
@@ -161,8 +174,17 @@ class TransactionDetails extends Component
         $this->reset('transactionStatusesFiltered');
       }
 
-    }
+      if(in_array('web_mobile',$this->filterTransactionsCheckbox,TRUE)){
+        $this->showWebMobileFilterButton = 'visible' ;
+        $this->showWebMobileFilterDropdown = 'hidden' ; 
+      }
+      else{
+        $this->showWebMobileFilterButton = 'hidden invisible' ;
+        $this->showWebMobileFilterDropdown = 'hidden' ;
+        $this->reset('webMobileFiltered');
+      }
 
+    }
 
     public function render()
     {
