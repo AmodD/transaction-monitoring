@@ -26,7 +26,7 @@ class TransactionDetails extends Component
     // this is the list pf checkbox items selected aka filtered in respective filters
     public $paymentGatewaysFiltered = [];
     public $consentFlagFilter = [];
-    public $merchantCategoryCodeFiltered = [];
+    public $merchantCategoryCodesFiltered = [];
     public $transactionStatusFilter = [];
     public $paymentAppFilter = [];
     public $webMobileFilter = [];
@@ -53,8 +53,7 @@ class TransactionDetails extends Component
 
     public function updatedSearchPG()
     {
-      $this->paymentGatewaysDisplayed = Arr::where($this->paymentGatewaysAll, function($value)
-      {
+      $this->paymentGatewaysDisplayed = Arr::where($this->paymentGatewaysAll, function($value){
         return Str::contains($value,$this->searchPG);
       });
 
@@ -64,8 +63,7 @@ class TransactionDetails extends Component
 
     public function updatedSearchMCC()
     {
-      $this->merchantCategoryCodesDisplayed = Arr::where($this->merchantCategoryCodesAll, function($value)
-      {
+      $this->merchantCategoryCodesDisplayed = Arr::where($this->merchantCategoryCodesAll, function($value){
         return Str::contains($value,$this->searchMCC);
       });
       
@@ -76,53 +74,39 @@ class TransactionDetails extends Component
     public function toggleFilterBody($data)
     {
       if($data == 'payment_gateway') {
-      ($this->showPaymentGatewayFilterDropdown == 'hidden') ? 
-        $this->showPaymentGatewayFilterDropdown = '' : 
-        $this->showPaymentGatewayFilterDropdown = 'hidden'  ;
+        ($this->showPaymentGatewayFilterDropdown == 'hidden') ? 
+          $this->showPaymentGatewayFilterDropdown = '' : 
+          $this->showPaymentGatewayFilterDropdown = 'hidden'  ;
       }
       else if($data == 'merchant_category_code') {
-      ($this->showMerchantCategoryCodeFilterDropdown == 'hidden') ? 
-        $this->showMerchantCategoryCodeFilterDropdown = '' : 
-        $this->showMerchantCategoryCodeFilterDropdown = 'hidden'  ;
+        ($this->showMerchantCategoryCodeFilterDropdown == 'hidden') ? 
+          $this->showMerchantCategoryCodeFilterDropdown = '' : 
+          $this->showMerchantCategoryCodeFilterDropdown = 'hidden'  ;
       }
     }
 
     public function updatedFilterTransactionsCheckbox()
     {
-      if(in_array('payment_gateway',$this->filterTransactionsCheckbox,TRUE))
-      {
+      if(in_array('payment_gateway',$this->filterTransactionsCheckbox,TRUE)){
         $this->showPaymentGatewayFilterButton = 'visible' ;
         $this->showPaymentGatewayFilterDropdown = 'hidden' ; 
       }
-      else
-      {
+      else{
         $this->showPaymentGatewayFilterButton = 'hidden invisible' ;
         $this->showPaymentGatewayFilterDropdown = 'hidden' ;
         $this->reset('paymentGatewaysFiltered');
       }
 
-
-      in_array('consent_flag',$this->filterTransactionsCheckbox,TRUE) ? 
-        $this->showConsentFlagFilter = 'visible' : 
-        $this->showConsentFlagFilter = 'invisible' ;
-      in_array('merchant_category_code',$this->filterTransactionsCheckbox,TRUE) ? 
-        $this->showMerchantCategoryCodeFilterButton = 'visible' : 
+      if(in_array('merchant_category_code',$this->filterTransactionsCheckbox,TRUE)){
+        $this->showMerchantCategoryCodeFilterButton = 'visible' ;
+        $this->showMerchantCategoryCodeFilterDropdown = 'hidden' ; 
+      }
+      else{
         $this->showMerchantCategoryCodeFilterButton = 'invisible' ;
-      in_array('transaction_status',$this->filterTransactionsCheckbox,TRUE) ? 
-        $this->showTransactionStatusFilter = 'visible' : 
-        $this->showTransactionStatusFilter = 'invisible' ;
-      in_array('payment_app',$this->filterTransactionsCheckbox,TRUE) ? 
-        $this->showPaymentAppFilter = 'visible' : 
-        $this->showPaymentAppFilter = 'invisible' ;
-      in_array('web_mobile',$this->filterTransactionsCheckbox,TRUE) ? 
-        $this->showWebMobileFilter = 'visible' : 
-        $this->showWebMobileFilter = 'invisible' ;
-      
-      in_array('merchant_category_code',$this->filterTransactionsCheckbox,TRUE) ? 
-        $this->showMerchantCategoryCodeFilterDropdown = 'hidden' : 
         $this->showMerchantCategoryCodeFilterDropdown = 'hidden' ;
+        $this->reset('merchantCategoryCodesFiltered');
+      }
 
-      in_array('merchant_category_code',$this->filterTransactionsCheckbox,TRUE) ? : $this->reset('merchantCategoryCodeFiltered');
     }
 
 

@@ -20,16 +20,18 @@
         @endif
         @if(in_array('consent_flag',$this->filterTransactionsCheckbox,TRUE))
         @endif
-        @if(in_array('merchant_category_code',$this->filterTransactionsCheckbox,TRUE))
+   
+       @if(in_array('merchant_category_code',$this->filterTransactionsCheckbox,TRUE))
         <div class="pr-4">
             <x-transaction-details.transactions-filter.merchant-category-code 
                 showMerchantCategoryCodeFilterButton="{{$showMerchantCategoryCodeFilterButton}}"  
                 showMerchantCategoryCodeFilterDropdown="{{$showMerchantCategoryCodeFilterDropdown}}"  
                 :merchantCategoryCodesDisplayed="$merchantCategoryCodesDisplayed"
-                :merchantCategoryCodeFiltered="$merchantCategoryCodeFiltered" />
+                :merchantCategoryCodesFiltered="$merchantCategoryCodesFiltered" />
         </div>
-        @endif
-        @if(in_array('transaction_status',$this->filterTransactionsCheckbox,TRUE))
+      @endif
+      
+       @if(in_array('transaction_status',$this->filterTransactionsCheckbox,TRUE))
         @endif
         @if(in_array('payment_app',$this->filterTransactionsCheckbox,TRUE))
         @endif
