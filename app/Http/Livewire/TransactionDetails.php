@@ -14,42 +14,58 @@ class TransactionDetails extends Component
     public $showPaymentGatewayFilterButton = 'invisible'; //button
     public $showPaymentGatewayFilterDropdown = ''; //dropdown
     
-    public $showConsentFlagFilter = 'invisible'; //button
+    public $showConsentFlagFilterButton = 'invisible';
+    public $showConsentFlagFilterDropdown = ''; 
     
-    public $showMerchantCategoryCodeFilterButton = 'invisible'; //button
-    public $showMerchantCategoryCodeFilterDropdown = ''; //dropdown
+    public $showMerchantCategoryCodeFilterButton = 'invisible'; 
+    public $showMerchantCategoryCodeFilterDropdown = '';
 
-    public $showTransactionStatusFilter = 'invisible'; //button
+    public $showTransactionStatusFilterButton = 'invisible';
+    public $showTransactionStatusFilterDropdown = '';
+
     public $showPaymentAppFilter = 'invisible'; //button
     public $showWebMobileFilter = 'invisible'; //button
 
     // this is the list pf checkbox items selected aka filtered in respective filters
     public $paymentGatewaysFiltered = [];
-    public $consentFlagFilter = [];
+    public $consentFlagsFiltered = [];
     public $merchantCategoryCodesFiltered = [];
-    public $transactionStatusFilter = [];
+    public $transactionStatusesFiltered = [];
     public $paymentAppFilter = [];
     public $webMobileFilter = [];
 
     // search boxes in respective filters
     public $searchPG = '';
     public $searchMCC = '';
+    public $searchTS = '';
 
     public $paymentGatewaysDisplayed = [];
     public $paymentGatewaysAll = ['480001','480002','480003','480004','480005','480006','480007'];
     
+    public $consentFlagsDisplayed = [];
+    public $consentFlagsAll = ['YES','NO'];
+
+    public $transactionStatusesDisplayed = [];
+    public $transactionStatusesAll = ['successfull','failed','pending','a','b','c','d'];
+
     public $merchantCategoryCodesDisplayed = [];
     public $merchantCategoryCodesAll = ['4829 money orders - wire transfer','4900 electric, gas, sanitary and water utilities','5013 motor vehicle supplies and new parts','5045 computers, computer peripheral equipment, software','5047 medical, dental ophthalmic, hospital equipment and supplies','5139 commercial footwear','5411 grocery stores','5462 bakeries','5571 motorcycle dealers','5732 electronic sales','5814 fast food restaurants','5942 book stores','5977 cosmetic stores','7032 sporting and recreational camps','7298 health and beauty shops','7542 car washes'];
-
+    
     public function mount()
     {
       $this->paymentGatewaysDisplayed = $this->paymentGatewaysAll;
       $this->showPaymentGatewayFilterDropdown = 'hidden';
       
+      $this->consentFlagsDisplayed = $this->consentFlagsAll;
+      $this->showConsentFlagFilterDropdown = 'hidden';
+      
       $this->merchantCategoryCodesDisplayed = $this->merchantCategoryCodesAll;
       $this->showMerchantCategoryCodeFilterDropdown = 'hidden';
+      
+      $this->transactionStatusesDisplayed = $this->transactionStatusesAll;
+      $this->showTransactionStatusFilterDropdown = 'hidden';
+      
     }
-
 
     public function updatedSearchPG()
     {
@@ -58,7 +74,6 @@ class TransactionDetails extends Component
       });
 
       if(!$this->paymentGatewaysDisplayed) $this->paymentGatewaysDisplayed  = $this->paymentGatewaysAll;
-
     }
 
     public function updatedSearchMCC()
@@ -68,8 +83,17 @@ class TransactionDetails extends Component
       });
       
       if(!$this->merchantCategoryCodesDisplayed) $this->merchantCategoryCodesDisplayed  = $this->merchantCategoryCodesAll;
-
     }
+
+    public function updatedSearchTS()
+    {
+      $this->transactionStatusesDisplayed = Arr::where($this->transactionStatusesAll, function($value){
+        return Str::contains($value,$this->searchTS);
+      });
+
+      if(!$this->transactionStatusesDisplayed) $this->transactionStatusesDisplayed  = $this->transactionStatusesAll;
+    }
+
 
     public function toggleFilterBody($data)
     {
@@ -82,6 +106,16 @@ class TransactionDetails extends Component
         ($this->showMerchantCategoryCodeFilterDropdown == 'hidden') ? 
           $this->showMerchantCategoryCodeFilterDropdown = '' : 
           $this->showMerchantCategoryCodeFilterDropdown = 'hidden'  ;
+      }
+      else if($data == 'consent_flag') {
+        ($this->showConsentFlagFilterDropdown == 'hidden') ? 
+          $this->showConsentFlagFilterDropdown = '' : 
+          $this->showConsentFlagFilterDropdown = 'hidden'  ;
+      }
+      else if($data == 'transaction_status') {
+        ($this->showTransactionStatusFilterDropdown == 'hidden') ? 
+          $this->showTransactionStatusFilterDropdown = '' : 
+          $this->showTransactionStatusFilterDropdown = 'hidden'  ;
       }
     }
 
@@ -97,6 +131,16 @@ class TransactionDetails extends Component
         $this->reset('paymentGatewaysFiltered');
       }
 
+      if(in_array('consent_flag',$this->filterTransactionsCheckbox,TRUE)){
+        $this->showConsentFlagFilterButton = 'visible' ;
+        $this->showConsentFlagFilterDropdown = 'hidden' ; 
+      }
+      else{
+        $this->showConsentFlagFilterButton = 'hidden invisible' ;
+        $this->showConsentFlagFilterDropdown = 'hidden' ;
+        $this->reset('consentFlagsFiltered');
+      }
+
       if(in_array('merchant_category_code',$this->filterTransactionsCheckbox,TRUE)){
         $this->showMerchantCategoryCodeFilterButton = 'visible' ;
         $this->showMerchantCategoryCodeFilterDropdown = 'hidden' ; 
@@ -105,6 +149,16 @@ class TransactionDetails extends Component
         $this->showMerchantCategoryCodeFilterButton = 'invisible' ;
         $this->showMerchantCategoryCodeFilterDropdown = 'hidden' ;
         $this->reset('merchantCategoryCodesFiltered');
+      }
+
+      if(in_array('transactions_status',$this->filterTransactionsCheckbox,TRUE)){
+        $this->showTransactionStatusFilterButton = 'visible' ;
+        $this->showTransactionStatusFilterDropdown = 'hidden' ; 
+      }
+      else{
+        $this->showTransactionStatusFilterButton = 'invisible' ;
+        $this->showTransactionStatusFilterDropdown = 'hidden' ;
+        $this->reset('transactionStatusesFiltered');
       }
 
     }

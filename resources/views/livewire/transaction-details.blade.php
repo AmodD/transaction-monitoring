@@ -18,7 +18,15 @@
                 :paymentGatewaysFiltered="$paymentGatewaysFiltered" />
           </div>
         @endif
+   
         @if(in_array('consent_flag',$this->filterTransactionsCheckbox,TRUE))
+          <div class="pr-4"> 
+            <x-transaction-details.transactions-filter.consent-flag
+                showConsentFlagFilterButton="{{$showConsentFlagFilterButton}}"  
+                showConsentFlagFilterDropdown="{{$showConsentFlagFilterDropdown}}"  
+                :consentFlagsDisplayed="$consentFlagsDisplayed"
+                :consentFlagsFiltered="$consentFlagsFiltered" />
+          </div>
         @endif
    
        @if(in_array('merchant_category_code',$this->filterTransactionsCheckbox,TRUE))
@@ -32,9 +40,18 @@
       @endif
       
        @if(in_array('transaction_status',$this->filterTransactionsCheckbox,TRUE))
-        @endif
-        @if(in_array('payment_app',$this->filterTransactionsCheckbox,TRUE))
-        @endif
+          <div class="pr-4"> 
+            <x-transaction-details.transactions-filter.transaction-status
+                showTransactionStatusFilterButton="{{$showTransactionStatusFilterButton}}"  
+                showTransactionStatusFilterDropdown="{{$showTransactionStatusFilterDropdown}}"  
+                :transactionStatusesDisplayed="$transactionStatusesDisplayed"
+                :transactionStatusesFiltered="$transactionStatusesFiltered" />
+          </div>
+       @endif
+  
+       @if(in_array('payment_app',$this->filterTransactionsCheckbox,TRUE))
+       @endif
+
         @if(in_array('web_mobile',$this->filterTransactionsCheckbox,TRUE))
         @endif
       </div>
