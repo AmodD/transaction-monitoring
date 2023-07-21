@@ -6,8 +6,13 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
+use App\Models\PaymentGateway;
+use App\Models\Transaction;
+
 class TransactionDetails extends Component
 {
+    public $transactions ;
+
     // this is the list of checkbox items for Transaction Filter 
     public $filterTransactionsCheckbox = [];
 
@@ -48,7 +53,7 @@ class TransactionDetails extends Component
     public $consentFlagsAll = ['YES','NO'];
 
     public $transactionStatusesDisplayed = [];
-    public $transactionStatusesAll = ['successfull','failed','pending','a','b','c','d'];
+    public $transactionStatusesAll = ['successfull','failed','pending'];
 
     public $merchantCategoryCodesDisplayed = [];
     public $merchantCategoryCodesAll = ['4829 money orders - wire transfer','4900 electric, gas, sanitary and water utilities','5013 motor vehicle supplies and new parts','5045 computers, computer peripheral equipment, software','5047 medical, dental ophthalmic, hospital equipment and supplies','5139 commercial footwear','5411 grocery stores','5462 bakeries','5571 motorcycle dealers','5732 electronic sales','5814 fast food restaurants','5942 book stores','5977 cosmetic stores','7032 sporting and recreational camps','7298 health and beauty shops','7542 car washes'];
@@ -58,6 +63,8 @@ class TransactionDetails extends Component
 
     public function mount()
     {
+      $this->transactions = Transaction::all();
+      $this->paymentGatewaysAll = PaymentGateway::all()->pluck('code')->toArray();
       $this->paymentGatewaysDisplayed = $this->paymentGatewaysAll;
       $this->showPaymentGatewayFilterDropdown = 'hidden';
       
