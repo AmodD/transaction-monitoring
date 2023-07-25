@@ -12,4 +12,14 @@ class Transaction extends Model
     protected $fillable = [
         'payment_gateway', 'transaction_id', 'token_requester_id', 'expiry_token','consent_flag', 'transaction_status', 'transaction_date'
     ];
+
+    public function getStatusColorAttribute()
+    {
+      return [
+        'successfull' => 'green',
+        'pending' => 'yellow',
+        'failed' => 'red', 
+      ][$this->transaction_status] ?? 'grey';
+    }
+
 }

@@ -4,14 +4,20 @@ namespace App\Http\Livewire;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+
 use Livewire\Component;
+use Livewire\WithPagination;
 
 use App\Models\PaymentGateway;
 use App\Models\Transaction;
 
 class TransactionDetails extends Component
 {
-    public $transactions ;
+    use WithPagination;
+
+    public $searchTransactions = 'failed';
+    public $sortField ;
+    public $sortDirection = 'desc';
 
     // this is the list of checkbox items for Transaction Filter 
     public $filterTransactionsCheckbox = [];
@@ -63,7 +69,7 @@ class TransactionDetails extends Component
 
     public function mount()
     {
-      $this->transactions = Transaction::all();
+ //     $this->transactions = Transaction::paginate(10);
       $this->paymentGatewaysAll = PaymentGateway::all()->pluck('code')->toArray();
       $this->paymentGatewaysDisplayed = $this->paymentGatewaysAll;
       $this->showPaymentGatewayFilterDropdown = 'hidden';
@@ -80,6 +86,19 @@ class TransactionDetails extends Component
       $this->webMobileDisplayed = $this->webMobileAll;
       $this->showWebMobileFilterDropdown = 'hidden';
       
+    }
+
+    public function sortBy($field)
+    {
+      if($this->sortField === $field)
+      {
+        $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc'; 
+      }
+      else {
+        $this->sortDirection = 'asc';
+      }
+
+      $this->sortField = $field;
     }
 
     public function updatedSearchPG()
@@ -197,6 +216,11 @@ class TransactionDetails extends Component
     {
       return view('livewire.transaction-details',[
         'name' => 'tets',
+        //'transactions' => Transaction::search('transaction_id',$this->searchTransactions)->paginate(10),
+        'transactions' => Transaction::query()
+          ->when($this->paymentGatewaysFiltered, fn($query,$pg) => $query->whereIn('payment_gateway',$pg))
+          ->orderBy($this->sortField,$this->sortDirection)->paginate(10),
+        
       ]);
     }
 }

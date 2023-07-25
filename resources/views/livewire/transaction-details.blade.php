@@ -63,8 +63,7 @@
         @endif
       </div>
 
-          <x-transaction-details.transactions-table />
-          <x-transaction-details.table-pagination />
+          <x-transaction-details.transactions-table :transactions="$transactions" />
 
     </div>
 
