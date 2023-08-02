@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
 
 use App\Models\PaymentGateway;
+use App\Models\MerchantCategoryCode;
 use App\Models\Transaction;
 
 /**
@@ -32,6 +33,8 @@ class TransactionFactory extends Factory
           'consent_flag' => $this->faker->boolean(),
           'transaction_status' => Arr::random(['successfull','successfull','failed','successfull','successfull','successfull','pending','successfull','successfull','successfull','successfull',]),
           'transaction_date' => $this->faker->dateTimeBetween('-12 week', 'now'),
+          'mcc' => Arr::random(MerchantCategoryCode::all()->pluck('code')->toArray()) ,
+          'web_mobile' => $this->faker->boolean(),
         ];
     }
 

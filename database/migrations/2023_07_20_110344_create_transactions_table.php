@@ -18,6 +18,8 @@ return new class extends Migration
           $table->string('token_requester_id');
           $table->string('expiry_token');
           $table->boolean('consent_flag');
+          $table->integer('mcc');
+          $table->boolean('web_mobile');
           $table->string('transaction_status');
           $table->string('transaction_date');
           $table->timestamps();

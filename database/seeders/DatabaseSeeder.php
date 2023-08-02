@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
        ]);
       //
       $this->call(PaymentGatewaySeeder::class);
+      $this->call(MerchantCategoryCodeSeeder::class);
       \App\Models\Transaction::factory(100)->create();
     }
 }

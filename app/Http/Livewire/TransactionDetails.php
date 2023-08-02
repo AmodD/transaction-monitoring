@@ -9,6 +9,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 use App\Models\PaymentGateway;
+use App\Models\MerchantCategoryCode;
 use App\Models\Transaction;
 
 class TransactionDetails extends Component
@@ -62,7 +63,7 @@ class TransactionDetails extends Component
     public $transactionStatusesAll = ['successfull','failed','pending'];
 
     public $merchantCategoryCodesDisplayed = [];
-    public $merchantCategoryCodesAll = ['4829 money orders - wire transfer','4900 electric, gas, sanitary and water utilities','5013 motor vehicle supplies and new parts','5045 computers, computer peripheral equipment, software','5047 medical, dental ophthalmic, hospital equipment and supplies','5139 commercial footwear','5411 grocery stores','5462 bakeries','5571 motorcycle dealers','5732 electronic sales','5814 fast food restaurants','5942 book stores','5977 cosmetic stores','7032 sporting and recreational camps','7298 health and beauty shops','7542 car washes'];
+    public $merchantCategoryCodesAll = ['4829 money orders - wire transfer','4900 electric, gas, sanitary and water utilities','5013 motor vehicle supplies and new parts','5045 computers, computer peripheral equipment, software','5047 medical, dental ophthalmic, hospital equipment and supplies','5139 commercial footwear','5411 grocery stores','5462 bakeries','5541 ','5571 motorcycle dealers','5732 electronic sales','5814 fast food restaurants','5942 book stores','5977 cosmetic stores','7032 sporting and recreational camps','7298 health and beauty shops','7542 car washes'];
     
     public $webMobileDisplayed = [];
     public $webMobileAll = ['Web','Mobile'];
@@ -77,6 +78,7 @@ class TransactionDetails extends Component
       $this->consentFlagsDisplayed = $this->consentFlagsAll;
       $this->showConsentFlagFilterDropdown = 'hidden';
       
+      $this->merchantCategoryCodesAll = MerchantCategoryCode::all()->pluck('code')->toArray();
       $this->merchantCategoryCodesDisplayed = $this->merchantCategoryCodesAll;
       $this->showMerchantCategoryCodeFilterDropdown = 'hidden';
       
@@ -190,7 +192,7 @@ class TransactionDetails extends Component
         $this->reset('merchantCategoryCodesFiltered');
       }
 
-      if(in_array('transactions_status',$this->filterTransactionsCheckbox,TRUE)){
+      if(in_array('transaction_status',$this->filterTransactionsCheckbox,TRUE)){
         $this->showTransactionStatusFilterButton = 'visible' ;
         $this->showTransactionStatusFilterDropdown = 'hidden' ; 
       }
@@ -219,6 +221,10 @@ class TransactionDetails extends Component
         //'transactions' => Transaction::search('transaction_id',$this->searchTransactions)->paginate(10),
         'transactions' => Transaction::query()
           ->when($this->paymentGatewaysFiltered, fn($query,$pg) => $query->whereIn('payment_gateway',$pg))
+          ->when($this->consentFlagsFiltered, fn($query,$cf) => $query->whereIn('consent_flag',$cf))
+          ->when($this->merchantCategoryCodesFiltered, fn($query,$mcc) => $query->whereIn('mcc',$mcc))
+          ->when($this->transactionStatusesFiltered, fn($query,$ts) => $query->whereIn('transaction_status',$ts))
+          ->when($this->webMobileFiltered, fn($query,$wm) => $query->whereIn('web_mobile',$wm))
           ->orderBy($this->sortField,$this->sortDirection)->paginate(10),
         
       ]);

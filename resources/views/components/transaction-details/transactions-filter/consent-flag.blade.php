@@ -5,7 +5,7 @@
           </svg>
           
           @if($consentFlagsFiltered)
-            <span class="">Consent Flag | {{$consentFlagsFiltered}} </span>
+            <span class="">Consent Flag | Selected </span>
           @else
             <span class="">Consent Flag | All </span>
           @endif
@@ -20,7 +20,7 @@
     @foreach($consentFlagsDisplayed as $consentFlag)
       <li>
         <div class="flex items-center pl-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-          <input wire:model="consentFlagsFiltered" type="radio" value="{{$consentFlag}}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+          <input wire:model="consentFlagsFiltered" type="checkbox" value="{{ ($consentFlag == 'YES' ) ? 1:0 }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
           <label for="checkbox-item-11" class="w-full py-2 ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">{{$consentFlag}}</label>
         </div>
       </li>
