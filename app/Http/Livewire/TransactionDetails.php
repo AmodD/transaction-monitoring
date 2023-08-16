@@ -16,6 +16,8 @@ class TransactionDetails extends Component
 {
     use WithPagination;
 
+    public $period = 30;
+
     public $searchTransactions = 'failed';
     public $sortField ;
     public $sortDirection = 'desc';
@@ -88,6 +90,14 @@ class TransactionDetails extends Component
       $this->webMobileDisplayed = $this->webMobileAll;
       $this->showWebMobileFilterDropdown = 'hidden';
       
+    }
+
+    public function periodSelector()
+    {
+      $periodSelectorText = '';
+
+      ($this->period) > 1 ? $periodSelectorText = 'Last '.$this->period.' Days' : $periodSelectorText = 'Yesterday';
+      return $periodSelectorText;
     }
 
     public function sortBy($field)
@@ -218,8 +228,10 @@ class TransactionDetails extends Component
     {
       return view('livewire.transaction-details',[
         'name' => 'tets',
+        'periodSelectorText' => ($this->period) > 1 ? 'Last '.$this->period.' Days' : 'Yesterday',
         //'transactions' => Transaction::search('transaction_id',$this->searchTransactions)->paginate(10),
         'transactions' => Transaction::query()
+          ->where('transaction_date', '>', now()->subDays($this->period)->endOfDay())
           ->when($this->paymentGatewaysFiltered, fn($query,$pg) => $query->whereIn('payment_gateway',$pg))
           ->when($this->consentFlagsFiltered, fn($query,$cf) => $query->whereIn('consent_flag',$cf))
           ->when($this->merchantCategoryCodesFiltered, fn($query,$mcc) => $query->whereIn('mcc',$mcc))

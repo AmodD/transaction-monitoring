@@ -3,7 +3,7 @@
     <div class="relative max-w-7xl mx-auto overflow-x-auto shadow-md px-4 py-2 pb-4 bg-white dark:bg-gray-900">
 
        <div class="flex items-center justify-between pb-2">
-          <x-transaction-details.period-selector />
+          <x-transaction-details.period-selector periodSelectorText="{{$periodSelectorText}}"/>
           <x-transaction-details.transactions-search />
           <x-transaction-details.transactions-filter />
       </div>

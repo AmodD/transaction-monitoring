@@ -113,7 +113,19 @@
                 <td class="px-3 py-4">{{$transaction->transaction_date}}</td>
             </tr>
             @empty
-              NO RESULTS
+            <tr><td> . </td></tr>
+            <tr><td> . </td></tr>
+            <tr><td> . </td></tr>
+            <tr class="bg-white dark:bg-gray-900 dark:border-gray-700">
+                <td class="px-3 py-4"> </td>
+                <td class="px-3 py-4"> </td>
+                <td class="px-3 py-4"> </td>
+                <td class="px-3 py-4"> </td>
+                <td class="px-3 py-4 text-lg font-semibold text-slate-500">NO RESULTS</td>
+            </tr>
+            <tr><td> . </td></tr>
+            <tr><td> . </td></tr>
+            <tr><td> . </td></tr>
             @endforelse
         </tbody>
     </table>
