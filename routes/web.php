@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Redis;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/testredis', function () {
+  //    Redis::set('name', 'Taylor');
+//    dd(Redis::command('get', ['hi']));
+    return " testing ".Redis::command('get', ['prospect_database_name']);
 });
 
 Route::middleware([
