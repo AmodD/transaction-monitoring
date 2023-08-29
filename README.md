@@ -11,5 +11,6 @@ Installation Instructions
 9. Generate key using command: "php artisan key:generate". A Base64 key will be automatically inserted in your .env file.
 10. Update DB parameters for sqlite in .env file.
 11. Update SMTP parameters in .env file.
-12. php artisan migrate:install
+12. php artisan migrate:refresh
 13. php artisan serve
+14. npm run dev
