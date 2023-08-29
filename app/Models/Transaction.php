@@ -19,6 +19,7 @@ class Transaction extends Model
         'successfull' => 'green',
         'pending' => 'yellow',
         'failed' => 'red', 
+        'suspended' => 'blue', 
       ][$this->transaction_status] ?? 'grey';
     }
 

@@ -31,8 +31,8 @@ class TransactionFactory extends Factory
           'token_requester_id' => $this->faker->uuid(),
           'expiry_token' => $this->faker->creditCardExpirationDateString(),
           'consent_flag' => $this->faker->boolean(),
-          'transaction_status' => Arr::random(['successfull','successfull','failed','successfull','successfull','successfull','pending','successfull','successfull','successfull','successfull',]),
-          'transaction_date' => $this->faker->dateTimeBetween('-12 week', 'now'),
+          'transaction_status' => Arr::random(['successfull','successfull','failed','successfull','successfull','successfull','pending','successfull','successfull','successfull','successfull','suspended','failed','pending','failed','successfull','successfull']),
+          'transaction_date' => $this->faker->dateTimeBetween('-52 week', 'now'),
           'mcc' => Arr::random(MerchantCategoryCode::all()->pluck('code')->toArray()) ,
           'web_mobile' => $this->faker->boolean(),
         ];
